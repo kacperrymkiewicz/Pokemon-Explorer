@@ -3,10 +3,13 @@ import { computed } from 'vue';
 import { Badge } from '@/components/ui/badge';
 import { TYPE_COLORS } from '@/constants/pokemonColors';
 import type { PokemonDetail } from '@/types/pokemon';
+import { usePokemonStore } from '@/stores/pokemonStore';
 
 const props = defineProps<{
   pokemon: PokemonDetail;
 }>();
+
+const store = usePokemonStore();
 
 const formattedId = computed(() => {
   return `#${props.pokemon.id.toString().padStart(3, '0')}`;
@@ -37,12 +40,17 @@ const cardBackground = computed(() => {
     backgroundColor: color1,
   };
 });
+
+const handleCardClick = () => {
+  store.openModal(props.pokemon.id);
+};
 </script>
 
 <template>
   <div
     class="group relative flex flex-col items-center justify-between overflow-hidden rounded-3xl p-6 transition-transform hover:scale-105 hover:shadow-xl cursor-pointer"
     :style="cardBackground"
+    @click="handleCardClick"
   >
 
     <div class="relative z-10 my-2 h-32 w-32 transition-transform duration-300 group-hover:scale-110">

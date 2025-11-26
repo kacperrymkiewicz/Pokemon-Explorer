@@ -2,6 +2,7 @@
 import PokemonList from '@/components/pokemon/PokemonList.vue';
 import PokemonFilters from '@/components/pokemon/PokemonFilters.vue';
 import SearchBar from '@/components/pokemon/SearchBar.vue';
+import PokemonModal from '@/components/pokemon/PokemonModal.vue';
 </script>
 
 <template>
@@ -25,5 +26,6 @@ import SearchBar from '@/components/pokemon/SearchBar.vue';
       </main>
       
     </div>
+    <PokemonModal />
   </div>
 </template>

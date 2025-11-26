@@ -24,3 +24,25 @@ export const fetchPokemons = async ({ pageParam = 0 }: { pageParam?: number }) =
     nextOffset: data.next ? offset + limit : null,
   };
 };
+
+export const fetchPokemonLocations = async (id: number) => {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/encounters`);
+  if (!response.ok) return [];
+
+  const data = await response.json();
+  return data.map((item: any) => item.location_area.name.replace(/-/g, ' '));
+};
+
+export const fetchPokemonEvolutionChain = async (id: number) => {
+  const speciesResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+  if (!speciesResponse.ok) throw new Error('Failed to fetch species data');
+  const speciesData = await speciesResponse.json();
+
+  const evolutionChainUrl = speciesData.evolution_chain.url;
+
+  const chainResponse = await fetch(evolutionChainUrl);
+  if (!chainResponse.ok) throw new Error('Failed to fetch evolution chain');
+  const chainData = await chainResponse.json();
+  
+  return chainData.chain;
+};
