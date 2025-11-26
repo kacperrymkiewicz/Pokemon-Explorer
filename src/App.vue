@@ -1,30 +1,24 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import PokemonList from '@/components/pokemon/PokemonList.vue';
+import { Badge } from '@/components/ui/badge';
+
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
+  <div class="min-h-screen bg-[#121212] text-foreground font-sans">
+    <div class="container mx-auto px-4 py-8">
+      
+      <header class="flex flex-col items-center mb-10 gap-4">
+        <div class="flex items-center gap-3">
+           <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" class="w-10 h-10" />
+           <h1 class="text-4xl font-extrabold text-orange-400 tracking-tight">Pokémon Explorer</h1>
+        </div>
+      </header>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+      <main>
+        <PokemonList />
+      </main>
+      
+    </div>
+  </div>
+</template>
