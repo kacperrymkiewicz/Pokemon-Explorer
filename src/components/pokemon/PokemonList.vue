@@ -4,6 +4,11 @@ import { useInfiniteQuery } from '@tanstack/vue-query';
 import { Button } from '../ui/button';
 import PokemonCard from './PokemonCard.vue';
 import { fetchPokemons } from '@/lib/api';
+import { usePokemonStore } from '@/stores/pokemonStore';
+import { storeToRefs } from 'pinia';
+
+const store = usePokemonStore();
+const { searchQuery, selectedTypes } = storeToRefs(store);
 
 const {
   data,
@@ -19,8 +24,17 @@ const {
   getNextPageParam: (lastPage) => lastPage.nextOffset,
 });
 
-const allPokemons = computed(() => {
-  return data.value?.pages.flatMap((page) => page.results) || [];
+const filteredPokemons = computed(() => {
+  const all = data.value?.pages.flatMap((page) => page.results) || [];
+
+  return all.filter((pokemon) => {
+    const matchesSearch = pokemon.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+  
+    const matchesType = selectedTypes.value.length === 0 || 
+      pokemon.types.some((t) => selectedTypes.value.includes(t.type.name));
+
+    return matchesSearch && matchesType;
+  });
 });
 </script>
 
@@ -37,9 +51,9 @@ const allPokemons = computed(() => {
     </div>
 
     <div v-else>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <PokemonCard
-          v-for="pokemon in allPokemons"
+          v-for="pokemon in filteredPokemons"
           :key="pokemon.id"
           :pokemon="pokemon"
         />

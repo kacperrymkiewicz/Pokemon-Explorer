@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import PokemonList from '@/components/pokemon/PokemonList.vue';
-import { Badge } from '@/components/ui/badge';
-
+import PokemonFilters from '@/components/pokemon/PokemonFilters.vue';
+import SearchBar from '@/components/pokemon/SearchBar.vue';
 </script>
 
 <template>
@@ -12,6 +12,11 @@ import { Badge } from '@/components/ui/badge';
         <div class="flex items-center gap-3">
            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Pokeball" class="w-10 h-10" />
            <h1 class="text-4xl font-extrabold text-orange-400 tracking-tight">Pokémon Explorer</h1>
+        </div>
+        
+        <div class="w-full p-4 rounded-xl text-center">
+           <SearchBar />
+           <PokemonFilters />
         </div>
       </header>
 
